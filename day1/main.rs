@@ -16,4 +16,4 @@ fn main() {
 
     println!("{}", sum);
 }
-// /Users/richard/rust_/day1/src/
+
