@@ -1,6 +1,6 @@
 fn main() {
     let mut answer: u32 = 0;
-   let mut data: Vec<_> = include_str!("/Users/richard/rust_/day1b/src/data.txt")
+   let mut data: Vec<_> = include_str!("data.txt")
             .split("\n")
             .collect();
 
