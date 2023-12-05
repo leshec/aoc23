@@ -1,4 +1,16 @@
-use std::usize;
+//day3
+//use coord system to find symbols: then find attached number and their right/left neighbours
+//func around a symbol is number or keep scanning...?
+//check around if a number
+//if not move onto next box around symbol 
+//scan right and left of number to get full number
+//collect the number for summing
+//mark the numbers as seen
+//move onto next coord of symbol
+//repeat
+//adapt code for real data or any
+//try to add tests + guards
+//factor in the edges
 
 //stores the symbol coords to search around
 struct SymbolCoord  {
@@ -14,23 +26,23 @@ struct Current  {
 }
 
 fn main() {
-    //issue if i still have newlines
-    //may need this string to slice out the numbers
-    //maybe can avoid that with just creating a value and concatinating
-    //avoid and may junk     
-    let data: Vec<_> = include_str!("test.txt").chars().collect();
+   //avoid using and may junk, cant get rid of newlines
+    //so tried diff approach below
+    //let data: Vec<_> = include_str!("test.txt").chars().collect();
 
-    //This is the current character I searching
-    //not what I windowing into 
+    //This is the current character I am searching
+    //not what I windowing into around 
+    //build a func to do that
     let mut cursor = Current  {
         x: 0,
         y: 0,
     };
 
 
+    //all the symbols, numbers and dots
     //Main data structure I am searching
     //should be able to navigate around this
-    //if i cant correlate with the seen matrix
+    //if i can correlate with the seen matrix
     let grid: Vec<_> = include_str!("test.txt").lines().collect();
 
     println!("grid....");
@@ -38,6 +50,7 @@ fn main() {
         println!("{:?}", line);    
     }
 
+    //quick reference:
     /*
     "467..114.."
     "...*......"
@@ -50,8 +63,8 @@ fn main() {
     "...$.*...."
     ".664.598.."
     */
-    //let check if i can find a value in the grid
-    //can i find the one above and the one below
+
+    //let check if i can find values in the grid
     let first_item = &grid[cursor.y];
     let first_item = &first_item[cursor.x..cursor.x+1];
     println!("This should be 4: {}", first_item);
@@ -78,12 +91,14 @@ fn main() {
     seen[0][0] = true;
     seen[3][5] = true;
 
+    //check it works as expected
     for line in seen {
         println!("{:?}", line);
     }
 
-    //used to store the numbers to sum
+    //used to store the numbers to sum for the answer
     //may be able to make redundant
+    //need a helper to scan left and right and find numbers
     let mut numbers: Vec<u32> = Vec::new();
 
     //used to store the coords of the symbols
@@ -91,25 +106,25 @@ fn main() {
     let mut coords: Vec<SymbolCoord> = Vec::new();
 
     
-    //This is the index into the string 
     //I am using it here to build the cursor coordinates
-    //maybe put them into a vector
-    //problem is it contains newlines so this may end up buggy
-    //Keep the code below, it is handy to build coords.
-    let mut index: usize = 0;
+    //checking the cursor lines up with grid and seen structures
+    //check this accesses the seen matrix and the grid matrix correctly
+    cursor.x = 0;
+    cursor.y = 0;
+    for line in grid {
+        for _ in line.chars()  {
+            println!("cursor x:{} y:{}", cursor.x, cursor.y);
+            cursor.x += 1;
+            cursor.x %= 10;
+        }
 
-    for each in data {
-        //println!("index: {} cursor x:{} y:{}", index, cursor.x, cursor.y);
-        index += 1;
-        cursor.x +=1 % 10;
-        cursor.y = index / 10;
-
+        cursor.y +=1;
         
     }
 }
 
 
-//These three functions check if an char
+//These three functions check if a grid element 
 //is a type
 fn is_number(sym: char) -> bool {
     if sym.is_digit(10) {
@@ -127,6 +142,8 @@ fn is_symbol(sym: char) -> bool {
     return false;
 }
 
+//these should be gone now
+//i converted to a grid
 fn is_newline(sym: char) -> bool {
     if sym.is_ascii_control() {
         return true;
