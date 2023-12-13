@@ -1,5 +1,5 @@
 //day3x
-//This needs some recursion, goddamn hack
+
 const DATA: &str = 
     "467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598..\n";
 const OFFSET: usize = 12;
@@ -77,25 +77,9 @@ fn main() {
          n += 1;
         }
         
-    let sum: i32 = sum.iter().sum(); 
+    let sum:i32 = sum.iter().sum();
     println!("{:?}", sum);
-  
-    
-    //if values[n+1].is_number && (values[n].has_symbol || values[n].right_symbol)
-
-    //end of the main function
-    }
-
-        //TODO
-        //println!("{:?}", each);
-        //if number
-        //if n2 is number && (n1 has symbol or n2) idx_start and idx_end
-        //if n3 is number && (n1, n2, n3 or has symbol) idx_start and idx_end
-        //push values to sum
-    
-    //TODO
-    //flatten the list of numbers in sum and get the anwser
-
+}
 
 //TODO replace numbers hard code or offsets
 fn check_for_symbol_nearby(idx: usize) -> bool {
