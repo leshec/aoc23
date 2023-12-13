@@ -48,9 +48,9 @@ fn main() {
         //TODO
         //println!("{:?}", each);
         //if number
-        //if n2 is number && (n1 has symbol or n2) idx_start and end
-        //if n3 is number && (n1, n2, n3 or has symbol) idx_start
-        //push value to sum
+        //if n2 is number && (n1 has symbol or n2) idx_start and idx_end
+        //if n3 is number && (n1, n2, n3 or has symbol) idx_start and idx_end
+        //push values to sum
     }
     //TODO
     //flatten the list of numbers in sum and get the anwser
