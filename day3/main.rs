@@ -1,6 +1,7 @@
 //day3x
-
-const DATA: &str = include_str!("test.txt");
+//This needs some recursion, goddamn hack
+const DATA: &str = 
+    "467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598..\n";
 const OFFSET: usize = 12;
 
 #[derive(Debug)]
@@ -25,7 +26,7 @@ fn main() {
     ".664.598.."
     */
     let mut values: Vec<Elements> = Vec::new();
-    let mut sum: Vec<usize> = Vec::new();
+    let mut sum: Vec<i32> = Vec::new();
 
     for (index, character) in DATA.chars().enumerate() {
         let mut right_symbol: bool = false;
@@ -44,17 +45,57 @@ fn main() {
         };
         values.push(element);
     }
-    for each in values {
+
+    let mut idx_start: usize = 0; 
+    let mut idx_end: usize = 0;
+    let mut n: usize = 0;
+    while n < DATA.len() {
+        if (values[n].is_number && values[n+1].is_number && values[n+2].is_number) && (values[n].has_symbol || values[n].right_symbol || values[n].further_right){
+            idx_start = n;
+            idx_end = n + 3; 
+            let result: i32 = (DATA[n..n+1].parse::<i32>().unwrap() * 100) + (DATA[n+1..n+2].parse::<i32>().unwrap() * 10) + (DATA[n+2..n+3].parse::<i32>().unwrap());
+            sum.push(result);
+            n += 3;
+            continue;
+        }      
+        if (values[n].is_number && values[n+1].is_number) && (values[n].has_symbol || values[n].right_symbol){
+            idx_start = n;
+            idx_end = n + 2; 
+            let result: i32 = (DATA[n..n+1].parse::<i32>().unwrap() * 10) + (DATA[n+1..n+2].parse::<i32>().unwrap());
+            sum.push(result);
+            n += 2; 
+            continue;
+        }
+        if (values[n].is_number) && (values[n].has_symbol){
+            idx_start = n;
+            idx_end = n + 1; 
+            let result: i32 = (DATA[n..n+1].parse::<i32>().unwrap());
+            sum.push(result);
+            n += 1; 
+            continue;
+        }
+         n += 1;
+        }
+        
+    let sum: i32 = sum.iter().sum(); 
+    println!("{:?}", sum);
+  
+    
+    //if values[n+1].is_number && (values[n].has_symbol || values[n].right_symbol)
+
+    //end of the main function
+    }
+
         //TODO
         //println!("{:?}", each);
         //if number
         //if n2 is number && (n1 has symbol or n2) idx_start and idx_end
         //if n3 is number && (n1, n2, n3 or has symbol) idx_start and idx_end
         //push values to sum
-    }
+    
     //TODO
     //flatten the list of numbers in sum and get the anwser
-}
+
 
 //TODO replace numbers hard code or offsets
 fn check_for_symbol_nearby(idx: usize) -> bool {
