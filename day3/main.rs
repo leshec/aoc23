@@ -46,38 +46,45 @@ fn main() {
         values.push(element);
     }
 
-    let mut idx_start: usize = 0; 
+    let mut idx_start: usize = 0;
     let mut idx_end: usize = 0;
     let mut n: usize = 0;
     while n < DATA.len() {
-        if (values[n].is_number && values[n+1].is_number && values[n+2].is_number) && (values[n].has_symbol || values[n].right_symbol || values[n].further_right){
+        if (values[n].is_number && values[n + 1].is_number && values[n + 2].is_number)
+            && (values[n].has_symbol || values[n].right_symbol || values[n].further_right)
+        {
             idx_start = n;
-            idx_end = n + 3; 
-            let result: i32 = (DATA[n..n+1].parse::<i32>().unwrap() * 100) + (DATA[n+1..n+2].parse::<i32>().unwrap() * 10) + (DATA[n+2..n+3].parse::<i32>().unwrap());
+            idx_end = n + 3;
+            let result: i32 = (DATA[n..n + 1].parse::<i32>().unwrap() * 100)
+                + (DATA[n + 1..n + 2].parse::<i32>().unwrap() * 10)
+                + (DATA[n + 2..n + 3].parse::<i32>().unwrap());
             sum.push(result);
             n += 3;
             continue;
-        }      
-        if (values[n].is_number && values[n+1].is_number) && (values[n].has_symbol || values[n].right_symbol){
+        }
+        if (values[n].is_number && values[n + 1].is_number)
+            && (values[n].has_symbol || values[n].right_symbol)
+        {
             idx_start = n;
-            idx_end = n + 2; 
-            let result: i32 = (DATA[n..n+1].parse::<i32>().unwrap() * 10) + (DATA[n+1..n+2].parse::<i32>().unwrap());
+            idx_end = n + 2;
+            let result: i32 = (DATA[n..n + 1].parse::<i32>().unwrap() * 10)
+                + (DATA[n + 1..n + 2].parse::<i32>().unwrap());
             sum.push(result);
-            n += 2; 
+            n += 2;
             continue;
         }
-        if (values[n].is_number) && (values[n].has_symbol){
+        if (values[n].is_number) && (values[n].has_symbol) {
             idx_start = n;
-            idx_end = n + 1; 
-            let result: i32 = (DATA[n..n+1].parse::<i32>().unwrap());
+            idx_end = n + 1;
+            let result: i32 = (DATA[n..n + 1].parse::<i32>().unwrap());
             sum.push(result);
-            n += 1; 
+            n += 1;
             continue;
         }
-         n += 1;
-        }
-        
-    let sum:i32 = sum.iter().sum();
+        n += 1;
+    }
+
+    let sum: i32 = sum.iter().sum();
     println!("{:?}", sum);
 }
 
